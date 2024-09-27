@@ -61,6 +61,9 @@ print(paste("ev=",EV))
 FAIR=(mean_prob)/(1-mean_prob)
 print(paste("fairbet=",FAIR))
 ```
+Find the probability that at least two student have the same birthday= 81%
+If 26 students in the class take the bet how much is Dr. J expected to win/lose. - He is expected to win.
+How much should Dr. J wager against the student's $1 to make this a fair bet? - Dr.J would need to bet $4.46 dollars for it to be a fair bet.
 
 ##Question2
 ```{r}
@@ -103,6 +106,10 @@ print(paste("ev=",EV))
 FAIR=(mean_prob)/(1-mean_prob)
 print(paste("fairbet=",FAIR))
 ```
+
+Assume class size is 26 instead of 35.  With the same bet ($1 ot $1) what is the probability Dr. J wins the bet now.  = 
+If 20 of the 26 students make the bet, what is Dr. J's expected profit/loss?
+
 ##Question 3
 
 ```{r}
