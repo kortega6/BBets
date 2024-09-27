@@ -103,4 +103,44 @@ print(paste("ev=",EV))
 FAIR=(mean_prob)/(1-mean_prob)
 print(paste("fairbet=",FAIR))
 ```
+##Question 3
 
+```{r}
+# Define function to simulate the birthday problem
+birthday_simulation <- function(class_size) {
+  birthdays <- sample(1:365, class_size, replace = TRUE)
+  any(duplicated(birthdays)) # Check if there are duplicates
+}
+
+# Run the simulation 100 times and save probabilities in a vector
+num_simulations <- 100
+class_size <- 23
+probabilities <- numeric(num_simulations)
+
+for (i in 1:num_simulations) {
+  # Run 1000 simulations to estimate the probability for each iteration
+  num_duplicates <- replicate(1000, birthday_simulation(class_size))
+  probabilities[i] <- mean(num_duplicates)
+}
+
+# Print the mean of the probabilities
+mean_prob <- mean(probabilities)
+cat("Mean =", mean_prob, "\n")
+
+# Plot a histogram of the probabilities
+hist(probabilities, main = "Histogram of Estimated Probabilities",
+     xlab = "Probability", col = "skyblue", border = "white")
+
+# Calculate a 95% confidence interval
+conf_interval <- quantile(probabilities, probs = c(0.025, 0.975))
+cat("95% Confidence Interval = [", conf_interval[1], ", ", conf_interval[2], "]\n")
+```
+
+
+```{r}
+EV= mean_prob*20-(1-mean_prob)*20
+print(paste("ev=",EV))
+```
+
+
+In order for it to be a fair bet the class size would need to be 23.
