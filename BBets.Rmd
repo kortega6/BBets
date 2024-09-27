@@ -14,6 +14,7 @@ Find the probability thatat least two student have the same birthday.  If 26 stu
 
 3. What size class (how many students) makes the $1 againt $1 a fair bet?
 
+##Question 1
 
 ```{r setup, include=FALSE}
 set.seed(123) # Set a seed for reproducibility
@@ -53,6 +54,48 @@ cat("95% Confidence Interval = [", conf_interval[1], ", ", conf_interval[2], "]\
 
 ```{r}
 EV= mean_prob*26-(1-mean_prob)*26
+print(paste("ev=",EV))
+```
+
+```{r}
+FAIR=(mean_prob)/(1-mean_prob)
+print(paste("fairbet=",FAIR))
+```
+
+##Question2
+```{r}
+# Define function to simulate the birthday problem
+birthday_simulation <- function(class_size) {
+  birthdays <- sample(1:365, class_size, replace = TRUE)
+  any(duplicated(birthdays)) # Check if there are duplicates
+}
+
+# Run the simulation 100 times and save probabilities in a vector
+num_simulations <- 100
+class_size <- 26
+probabilities <- numeric(num_simulations)
+
+for (i in 1:num_simulations) {
+  # Run 1000 simulations to estimate the probability for each iteration
+  num_duplicates <- replicate(1000, birthday_simulation(class_size))
+  probabilities[i] <- mean(num_duplicates)
+}
+
+# Print the mean of the probabilities
+mean_prob <- mean(probabilities)
+cat("Mean =", mean_prob, "\n")
+
+# Plot a histogram of the probabilities
+hist(probabilities, main = "Histogram of Estimated Probabilities",
+     xlab = "Probability", col = "skyblue", border = "white")
+
+# Calculate a 95% confidence interval
+conf_interval <- quantile(probabilities, probs = c(0.025, 0.975))
+cat("95% Confidence Interval = [", conf_interval[1], ", ", conf_interval[2], "]\n")
+```
+
+```{r}
+EV= mean_prob*20-(1-mean_prob)*20
 print(paste("ev=",EV))
 ```
 
